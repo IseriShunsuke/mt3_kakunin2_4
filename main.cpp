@@ -517,9 +517,9 @@ bool IsCollision(const Segment& s1, const Triangle& t1)
 	t = (d - Dot(s1.origin, n)) / dot0;
 	
 	Vector3 p = add(s1.origin, multiply(t, s1.diff));
-	Vector3 p0 = subtract(t1.vertices[0], p);
-	Vector3 p1 = subtract(t1.vertices[1], p);
-	Vector3 p2 = subtract(t1.vertices[2], p);
+	Vector3 p0 = subtract(p, t1.vertices[0]);
+	Vector3 p1 = subtract(p, t1.vertices[1]);
+	Vector3 p2 = subtract(p, t1.vertices[2]);
 
 	if (t < 0 && t > 1)
 	{
@@ -532,9 +532,9 @@ bool IsCollision(const Segment& s1, const Triangle& t1)
 	Vector3	cross12 = Cross(v12, p2);
 	Vector3 cross20 = Cross(v20, p0);
 
-	if (Dot(cross01, t1.vertices[0]) >= 0.0f &&
-		Dot(cross12, t1.vertices[1]) >= 0.0f &&
-		Dot(cross20, t1.vertices[2]) >= 0.0f)
+	if (Dot(cross01, n) >= 0.0f &&
+		Dot(cross12, n) >= 0.0f &&
+		Dot(cross20, n) >= 0.0f)
 	{
 		return true;
 	}
